@@ -1,0 +1,121 @@
+{% load bootstrap3 %}
+<html>
+  <head>
+    <title>
+      Foundation for Learning Equality
+    </title>
+  </head>
+
+  <body>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Brand</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="../../">Home</a></li>
+            <li><a href="../../">Movies</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+                <li class="divider"></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form class="navbar-form navbar-left" role="search" action="/search/" name = "moviename">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Link</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    {% block content %}
+      
+      {% for movie in movies %}
+      {% if movie.id == ti %}
+<p><img src="{{movie.posters.profile}}" align="right" valign="center" vspace="5" hspace="5"/>{{ movie.title }} </p>
+       <h3> <strong>Title: {{ movie.title }} </strong> </h3>
+       <h4><strong> Year of Release: {{ movie.year }} </strong> </h4>
+       <h5> <strong>MPAA Rating: </strong> {{ movie.mpaa_rating }} </h5>
+       <h5><strong> Movie Runtime: </strong> {{ movie.runtime }} Minutes </strong></h5>
+       <h5> <strong>Movie Release Dates: </strong>
+	{% for r in movie.release_dates.theater %}
+	{{ r }}{% endfor %} </strong>       </h5>
+	
+       <h5><strong> Movie Synopsis: </strong></h5>
+	<p>  {{ movie.synopsis }} </p>
+	<h5><strong>Posters: </strong></h5>
+
+	<a href="{{movie.posters.original}}"> Original </a>
+	<a href="{{movie.posters.detailed}}"> Detailed </a>
+
+       <h5><strong> Ratings: </strong> </h5>
+	
+	<p>Critics Rating: {{ movie.ratings.critics_rating}} </p>
+	<p>Critics Score: {{ movie.ratings.critics_score }} </p>
+   	<p>Audience Score: {{ movie.ratings.audience_score }} </p>
+	
+       <h5> <strong> Abridged Cast:</strong> </h5>
+
+       {% for j in movie.abridged_cast %}
+       <p>     {{ j.name }} : {{ j.id }}</p>
+      	{% endfor %}
+        {% for c in j.characters %} 
+        <p>   {{ c }} </p>
+        {% endfor %}
+
+
+	<p><a href="{{movie.links.self}}"> Self</a> 
+
+	<a href="{{movie.links.alternate}}"> Alternate </a> 
+
+	<a href="{{movie.links.cast}}"> Cast</a> 
+
+	<a href="{{movie.links.clips}}"> Clips </a> 
+
+	<a href="{{movie.links.reviews}}"> Reviews </a> 
+
+	<a href="{{movie.links.similar}}"> Similar</a> </p>
+
+      {% endif %}
+     
+      {% endfor %} 
+
+    {% endblock %}
+  </body>
+</html>
