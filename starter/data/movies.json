@@ -1,4 +1,4 @@
-{
+[{
   "total": 13,
   "movies": [
     {
@@ -694,3 +694,4 @@
   },
   "link_template": "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/upcoming.json?page_limit={results_per_page}&page={page_number}&country={country-code}"
 }
+]
